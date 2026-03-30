@@ -1,6 +1,8 @@
+
 .water-brush-regular {
   font-family: "Water Brush", cursive !important;
   font-weight: 400;
+  color:aliceblue;
   font-style: normal;
 }
 
@@ -24,4 +26,28 @@ input {
   align-items: center;
   gap: 20px;
   padding: 20px;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    background-color: wheat;
+    height: 100vh;
+    width: 100vw;
+    margin: 20;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.addBgImage {
+  background-image: url(./images/lined-paper-template-6mm-supernote.jpeg);
+  background-size: contain; /* Scales the image to cover the entire column area */
+  background-position: center; /* Centers the image within the column */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+ background-position: canter;
+}
+
+.addBgImage img {
+  width: auto;       /* Fills the column width */
+  height: 100;      /* Maintains aspect ratio */
+  object-fit: contain; /* Ensures entire image is visible, no cropping */
 }

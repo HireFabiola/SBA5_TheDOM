@@ -51,3 +51,17 @@ body{
   height: 100;      /* Maintains aspect ratio */
   object-fit: contain; /* Ensures entire image is visible, no cropping */
 }
+
+.left-panel {
+    width: 40%;          /* adjust as needed */
+    padding: 2rem;
+}
+
+.right-panel {
+    width: 60%;
+    height: 100vh;
+    background-image: url('./images/lined-paper-template-6mm-supernote.jpeg');
+    background-size: contain;      /* prevents cropping */
+    background-repeat: no-repeat;
+    background-position: center;
+}

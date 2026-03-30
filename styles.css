@@ -1,34 +1,33 @@
-
 .water-brush-regular {
-  font-family: "Water Brush", cursive !important;
-  font-weight: 400;
-  color:aliceblue;
-  font-style: normal;
+    font-family: "Water Brush", cursive !important;
+    font-weight: 400;
+    color: aliceblue;
+    font-style: normal;
 }
 
 input {
-  padding: 10px;
-  font-size: 16px;
-  margin-top: 5px;
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 5px;
 }
 
 .form-group {
-  display: flex;
-  flex-direction: column;
-  width: 60%;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
 }
 
 .form {
-  width: 60vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  padding: 20px;
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
 }
 
-body{
+body {
     display: flex;
     justify-content: center;
     background-color: wheat;
@@ -39,21 +38,22 @@ body{
 }
 
 .addBgImage {
-  background-image: url(./images/lined-paper-template-6mm-supernote.jpeg);
-  background-size: contain; /* Scales the image to cover the entire column area */
-  background-position: center; /* Centers the image within the column */
-  background-repeat: no-repeat; /* Prevents the image from repeating */
- background-position: canter;
+    background-image: url(./images/lined-paper-template-6mm-supernote.jpeg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .addBgImage img {
-  width: auto;       /* Fills the column width */
-  height: 100;      /* Maintains aspect ratio */
-  object-fit: contain; /* Ensures entire image is visible, no cropping */
+    width: auto;
+    height: 100;
+    object-fit: contain;
+  
 }
 
 .left-panel {
-    width: 40%;          /* adjust as needed */
+    width: 40%;
     padding: 2rem;
 }
 
@@ -61,7 +61,24 @@ body{
     width: 60%;
     height: 100vh;
     background-image: url('./images/lined-paper-template-6mm-supernote.jpeg');
-    background-size: contain;      /* prevents cropping */
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .left-panel,
+    .right-panel {
+        width: 100%;
+        height: auto;
+    }
+
+    .right-panel {
+        min-height: 50vh;
+    
+    }
 }

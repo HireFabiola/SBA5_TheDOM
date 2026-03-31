@@ -53,12 +53,33 @@ function addBlogPost(blogTitle, blogDescription) {
 
 // Render blog posts
 function renderBlogPosts() {
-    const displayTitle = document.getElementById("outputTitle");
-    const displayDescription = document.getElementById("outputDescription");
 
-    for (let i = 0; i < blogPostIdeas.length; i++){
-    displayTitle.textContent = blogPostIdeas[i].title;
-    displayDescription.textContent = blogPostIdeas[i].description;
-    
+    const fragContainer = document.createDocumentFragment();
+
+    for (let i = 0; i < blogPostIdeas.length; i++) {
+        // Clear list for re-rendering 
+        displayOutput.innerHTML = "";
+        
+        // Create new elements for each post in the array
+        const displayTitle = document.createElement("h5");
+        const displayDescription = document.createElement("p");
+        const displayDelete = document.createElement("button");
+        displayDelete.textContent = 'delete';
+        const displayEdit = document.createElement("button")
+        displayEdit.textContent = 'edit';
+
+
+        displayTitle.textContent = blogPostIdeas[i].title;
+        displayDescription.textContent = blogPostIdeas[i].description;
+
+
+        fragContainer.appendChild(displayTitle);
+        fragContainer.appendChild(displayDescription);
+        fragContainer.appendChild(displayEdit);
+        fragContainer.appendChild(displayDelete);
+
     }
+    displayOutput.appendChild(fragContainer);
 }
+
+

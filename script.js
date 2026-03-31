@@ -5,6 +5,7 @@ const blogDescriptionField = document.getElementById("blogDescription");
 let blogPostIdeas = [];
 
 
+
 // Add event listener for form submission
 blogPostForm.addEventListener("submit", handleSubmitForm);
 
@@ -67,8 +68,10 @@ function renderBlogPosts() {
         const displayDescription = document.createElement("p");
         const displayDelete = document.createElement("button");
         displayDelete.textContent = 'delete';
+        displayDelete.addEventListener("click",handleDelete);
         const displayEdit = document.createElement("button")
         displayEdit.textContent = 'edit';
+        displayEdit.addEventListener("click", handleEdit);
 
         // Wrapper to wrap each post before appending to fragContainer per Chat's recommendation for ease of future deletion
         const divWrapper = document.createElement("div");
@@ -91,4 +94,15 @@ function renderBlogPosts() {
     blogPostForm.reset();
 }
 
+// Function to handle deletion of targeted post
+function handleDelete(event){
+    console.log(event);
+ const deletedPost = event.target.parentElement;
+console.log(deletedPost);
+deletedPost.remove();
+renderBlogPosts;
+}
 
+function handleEdit(event){
+
+}

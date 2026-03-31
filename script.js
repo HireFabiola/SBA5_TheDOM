@@ -59,7 +59,7 @@ function renderBlogPosts() {
     for (let i = 0; i < blogPostIdeas.length; i++) {
         // Clear list for re-rendering 
         displayOutput.innerHTML = "";
-        
+
         // Create new elements for each post in the array
         const displayTitle = document.createElement("h5");
         const displayDescription = document.createElement("p");
@@ -68,16 +68,21 @@ function renderBlogPosts() {
         const displayEdit = document.createElement("button")
         displayEdit.textContent = 'edit';
 
+        // Wrapper to wrap each post before appending to fragContainer per Chat's recommendation for ease of future deletion
+        const divWrapper = document.createElement("div");
+
+
 
         displayTitle.textContent = blogPostIdeas[i].title;
         displayDescription.textContent = blogPostIdeas[i].description;
 
 
-        fragContainer.appendChild(displayTitle);
-        fragContainer.appendChild(displayDescription);
-        fragContainer.appendChild(displayEdit);
-        fragContainer.appendChild(displayDelete);
+        divWrapper.appendChild(displayTitle);
+        divWrapper.appendChild(displayDescription);
+        divWrapper.appendChild(displayEdit);
+        divWrapper.appendChild(displayDelete);
 
+        fragContainer.appendChild(divWrapper);
     }
     displayOutput.appendChild(fragContainer);
 }

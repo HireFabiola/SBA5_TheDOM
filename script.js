@@ -36,27 +36,29 @@ function handleSubmitForm(event) {
 }
 
 // Function to save the blog to array and render the blog list dynamically
-function addBlogPost(blogTitle, blogDescription){
-   
+function addBlogPost(blogTitle, blogDescription) {
+
     // Create the blog post object to contain title and description
-   let blogPost = 
-        { title:  blogTitle,
+    let blogPost =
+    {
+        title: blogTitle,
         description: blogDescription,
-        }
-    
+    }
+
     // Add to array
-     blogPostIdeas.push(blogPost);
-     console.log(blogPostIdeas);
-     renderBlogPosts();
+    blogPostIdeas.push(blogPost);
+    console.log(blogPostIdeas);
+    renderBlogPosts();
 }
 
 // Render blog posts
-function renderBlogPosts{
+function renderBlogPosts() {
+    const displayTitle = document.getElementById("outputTitle");
+    const displayDescription = document.getElementById("outputDescription");
 
-const displayBlogPosts = document.getElementById("submitOutput")
-    for (let i = 0; i < blogPostIdeas.length; i++)
-
-
+    for (let i = 0; i < blogPostIdeas.length; i++){
+    displayTitle.textContent = blogPostIdeas[i].title;
+    displayDescription.textContent = blogPostIdeas[i].description;
+    
+    }
 }
-
-

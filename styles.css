@@ -1,7 +1,7 @@
 .water-brush-regular {
     font-family: "Water Brush", cursive !important;
     font-weight: 400;
-    color: aliceblue;
+    color: black
     font-style: normal;
 }
 
@@ -60,7 +60,7 @@ body {
 .right-panel {
     width: 60%;
     height: 100vh;
-    background-image: url('./images/lined-paper-template-6mm-supernote.jpeg');
+    /*background-image: url('./images/lined-paper-template-6mm-supernote.jpeg');*/
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

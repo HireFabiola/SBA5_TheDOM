@@ -51,14 +51,16 @@ function addBlogPost(blogTitle, blogDescription) {
     renderBlogPosts();
 }
 
+ blogPostForm.reset();
+
 // Render blog posts
 function renderBlogPosts() {
+     // Clear out display output for re-rendering
+     displayOutput.innerHTML = "";
 
     const fragContainer = document.createDocumentFragment();
 
     for (let i = 0; i < blogPostIdeas.length; i++) {
-        // Clear list for re-rendering 
-        displayOutput.innerHTML = "";
 
         // Create new elements for each post in the array
         const displayTitle = document.createElement("h5");
@@ -85,6 +87,8 @@ function renderBlogPosts() {
         fragContainer.appendChild(divWrapper);
     }
     displayOutput.appendChild(fragContainer);
+
+    blogPostForm.reset();
 }
 
 

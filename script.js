@@ -2,9 +2,11 @@ const blogPostForm = document.getElementById("blogPostForm");
 const submitButton = document.getElementById("submitBlogPost");
 const titleField = document.getElementById("blogTitle");
 const blogDescriptionField = document.getElementById("blogDescription");
+
 let blogPostIdeas = [];
 
-
+// Call to load blog posts on start
+loadBlogPosts();
 
 // Add event listener for form submission
 blogPostForm.addEventListener("submit", handleSubmitForm);
@@ -32,29 +34,33 @@ function handleSubmitForm(event) {
         blogPostForm.reportValidity();
         return;
     }
-
     addBlogPost(titleField.value, blogDescriptionField.value);
+
+    // Reset form
+    blogPostForm.reset();
 }
 
-// Function to save the blog to array and render the blog list dynamically
+
+// Function to save the blog to array and render the list dynamically
 function addBlogPost(blogTitle, blogDescription) {
 
     // Create the blog post object to contain title and description
     let blogPost =
     {
+        id: crypto.randomUUID(),
         title: blogTitle,
         description: blogDescription,
-    }
+    };
 
     // Add to array
     blogPostIdeas.push(blogPost);
 
-    // Store to localStorage
-    storeBlogPosts(blogPost);
+    // Store to localStorage and display to screen
+    saveBlogPosts();
     renderBlogPosts();
 }
 
-blogPostForm.reset();
+
 
 // Render blog posts
 function renderBlogPosts() {
@@ -110,27 +116,76 @@ function handleEdit(event) {
 }
 
 // Function to store blog post in localStorage
-function storeBlogPosts(blogPost) {
-    //assign each blog post a unique ID
-    const blogID = crypto.randomUUID();
+function saveBlogPosts() {
+    localStorage.setItem("blogPosts", JSON.stringify(blogPostIdeas));
+}
 
-    console.log(blogPost);
-    const savedBlog = {
-        id: blogID,
-        title: blogPost.title,
-        description: blogPost.description,
-    };
-
-    // Initialize array for posts stored posts
-    let storedPosts = JSON.parse(localStorage.getItem("blogPosts")) || [];
-
-    // Push recent post object to array
-    storedPosts.push(savedBlog);
-
-    // Restore appended array back to localStorage
-    localStorage.setItem("blogPosts", JSON.stringify(savedBlog));
-
-    blogPostIdeas = storedPosts;
-
+function loadBlogPosts() {
+    blogPostIdeas = JSON.parse(localStorage.getItem("blogPosts")) || [];
     renderBlogPosts();
+}
+
+
+function renderBlogPosts() {
+    displayOutput.innerHTML = "";
+
+    const fragContainer = document.createDocumentFragment();
+
+    for (let i = 0; i < blogPostIdeas.length; i++) {
+
+        const post = blogPostIdeas[i];
+
+        const displayTitle = document.createElement("h5");
+        const displayDescription = document.createElement("p");
+
+        displayTitle.textContent = post.title;
+        displayDescription.textContent = post.description;
+
+        const displayDelete = document.createElement("button");
+        displayDelete.textContent = "delete";
+        displayDelete.addEventListener("click", handleDelete);
+
+        const displayEdit = document.createElement("button");
+        displayEdit.textContent = "edit";
+        displayEdit.addEventListener("click", handleEdit);
+
+        const divWrapper = document.createElement("div");
+        divWrapper.classList.add("blog-post");
+        divWrapper.dataset.id = post.id; 
+
+        divWrapper.appendChild(displayTitle);
+        divWrapper.appendChild(displayDescription);
+        divWrapper.appendChild(displayEdit);
+        divWrapper.appendChild(displayDelete);
+
+        fragContainer.appendChild(divWrapper);
+    }
+
+    displayOutput.appendChild(fragContainer);
+}
+
+
+function handleDelete(event) {
+
+    const postEl = event.target.closest(".blog-post");
+    const id = postEl.dataset.id;
+
+    blogPostIdeas = blogPostIdeas.filter(post => post.id !== id);
+
+    saveBlogPosts();
+    renderBlogPosts();
+}
+
+function handleEdit(event) {
+
+    const postEl = event.target.closest(".blog-post");
+    const id = postEl.dataset.id;
+
+    const post = blogPostIdeas.find(p => p.id === id);
+
+    titleField.value = post.title;
+    blogDescriptionField.value = post.description;
+
+    // store editing id on form
+    blogPostForm.dataset.editingId = id;
 }

@@ -48,16 +48,18 @@ function addBlogPost(blogTitle, blogDescription) {
 
     // Add to array
     blogPostIdeas.push(blogPost);
-    console.log(blogPostIdeas);
+
+    // Store to localStorage
+    storeBlogPosts(blogPost);
     renderBlogPosts();
 }
 
- blogPostForm.reset();
+blogPostForm.reset();
 
 // Render blog posts
 function renderBlogPosts() {
-     // Clear out display output for re-rendering
-     displayOutput.innerHTML = "";
+    // Clear out display output for re-rendering
+    displayOutput.innerHTML = "";
 
     const fragContainer = document.createDocumentFragment();
 
@@ -68,7 +70,7 @@ function renderBlogPosts() {
         const displayDescription = document.createElement("p");
         const displayDelete = document.createElement("button");
         displayDelete.textContent = 'delete';
-        displayDelete.addEventListener("click",handleDelete);
+        displayDelete.addEventListener("click", handleDelete);
         const displayEdit = document.createElement("button")
         displayEdit.textContent = 'edit';
         displayEdit.addEventListener("click", handleEdit);
@@ -95,14 +97,40 @@ function renderBlogPosts() {
 }
 
 // Function to handle deletion of targeted post
-function handleDelete(event){
+function handleDelete(event) {
     console.log(event);
- const deletedPost = event.target.parentElement;
-console.log(deletedPost);
-deletedPost.remove();
-renderBlogPosts;
+    const deletedPost = event.target.parentElement;
+    console.log(deletedPost);
+    deletedPost.remove();
+    renderBlogPosts;
 }
 
-function handleEdit(event){
+function handleEdit(event) {
 
+}
+
+// Function to store blog post in localStorage
+function storeBlogPosts(blogPost) {
+    //assign each blog post a unique ID
+    const blogID = crypto.randomUUID();
+
+    console.log(blogPost);
+    const savedBlog = {
+        id: blogID,
+        title: blogPost.title,
+        description: blogPost.description,
+    };
+
+    // Initialize array for posts stored posts
+    let storedPosts = JSON.parse(localStorage.getItem("blogPosts")) || [];
+
+    // Push recent post object to array
+    storedPosts.push(savedBlog);
+
+    // Restore appended array back to localStorage
+    localStorage.setItem("blogPosts", JSON.stringify(savedBlog));
+
+    blogPostIdeas = storedPosts;
+
+    renderBlogPosts();
 }

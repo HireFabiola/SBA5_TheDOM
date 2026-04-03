@@ -34,12 +34,33 @@ function handleSubmitForm(event) {
         blogPostForm.reportValidity();
         return;
     }
-    addBlogPost(titleField.value, blogDescriptionField.value);
+
+    // Grab id from post
+    const editingId = blogPostForm.dataset.editingId;
+
+    if (editingId) {
+        // Treat as update
+        const post = blogPostIdeas.find(p => p.id === editingId);
+
+        if (post) {
+            post.title = titleField.value;
+            post.description = blogDescriptionField.value;
+        }
+
+        // Clear editing state
+        delete blogPostForm.dataset.editingId;
+
+    } else {
+        // It's a new post, so add
+        addBlogPost(titleField.value, blogDescriptionField.value);
+    }
+    // Store to localStorage and display to screen
+    saveBlogPosts();
+    renderBlogPosts();
 
     // Reset form
     blogPostForm.reset();
 }
-
 
 // Function to save the blog to array and render the list dynamically
 function addBlogPost(blogTitle, blogDescription) {
@@ -55,12 +76,8 @@ function addBlogPost(blogTitle, blogDescription) {
     // Add to array
     blogPostIdeas.push(blogPost);
 
-    // Store to localStorage and display to screen
-    saveBlogPosts();
-    renderBlogPosts();
+
 }
-
-
 
 // Render blog posts
 function renderBlogPosts() {
@@ -108,11 +125,7 @@ function handleDelete(event) {
     const deletedPost = event.target.parentElement;
     console.log(deletedPost);
     deletedPost.remove();
-    renderBlogPosts;
-}
-
-function handleEdit(event) {
-
+    renderBlogPosts();
 }
 
 // Function to store blog post in localStorage
@@ -151,7 +164,7 @@ function renderBlogPosts() {
 
         const divWrapper = document.createElement("div");
         divWrapper.classList.add("blog-post");
-        divWrapper.dataset.id = post.id; 
+        divWrapper.dataset.id = post.id;
 
         divWrapper.appendChild(displayTitle);
         divWrapper.appendChild(displayDescription);
@@ -164,7 +177,7 @@ function renderBlogPosts() {
     displayOutput.appendChild(fragContainer);
 }
 
-
+// Function to handle Click on delete 
 function handleDelete(event) {
 
     const postEl = event.target.closest(".blog-post");
@@ -176,13 +189,17 @@ function handleDelete(event) {
     renderBlogPosts();
 }
 
+//Function to handle Click on Edit
 function handleEdit(event) {
 
-    const postEl = event.target.closest(".blog-post");
-    const id = postEl.dataset.id;
+    // Identify blog node selected
+    const selectedPost = event.target.closest(".blog-post");
+    const id = selectedPost.dataset.id;
 
+    // Locate selected post in stored array
     const post = blogPostIdeas.find(p => p.id === id);
 
+    // Repopulate the title and description into the main input fields
     titleField.value = post.title;
     blogDescriptionField.value = post.description;
 
